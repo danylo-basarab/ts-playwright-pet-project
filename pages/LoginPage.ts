@@ -16,10 +16,9 @@ export class LoginPage {
     this.passwordInput = page.locator('input[formcontrolname="password"]');
     this.signInButton = page.locator('button[type="submit"]');
     this.errorMessages = page.locator(".error-messages li");
-    this.needAnAccountLink = page.locator('a[href="/register"]');
+    this.needAnAccountLink = page.getByText("Need an account?");
   }
 
-  // ── Actions ───────────────────────────────────────────────
   async fillEmail(email: string) {
     await this.emailInput.fill(email);
   }
