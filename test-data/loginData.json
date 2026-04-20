@@ -1,17 +1,17 @@
 {
   "users": [
     {
-      "user-id": 1,
+      "case-description": "valid login data",
       "email": "danylo@email.com",
       "password": "12345678"
     },
     {
-      "user-id": 2,
+      "case-description": "blank email login data",
       "email": " ",
       "password": "12345678"
     },
     {
-      "user-id": 3,
+      "case-description": "wrong password login data",
       "email": "danylo@email.com",
       "password": "wrongpassword"
     }
