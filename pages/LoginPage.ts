@@ -41,12 +41,6 @@ export class LoginPage {
     await this.needAnAccountLink.click();
   }
 
-  async loginWithBlankEmail(email: string, password: string) {
-    await this.fillEmail(email);
-    await this.fillPassword(password);
-    await this.clickSignIn();
-  }
-
   async getErrorMessages(): Promise<string[]> {
     await this.errorMessages.first().waitFor({ state: "visible" });
     return this.errorMessages.allTextContents();
