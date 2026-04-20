@@ -1,5 +1,5 @@
 ### Goal
-This pet project was build to practice test automation skills using TS + Playwright
+This pet project was built to practice test automation skills using TypeScript and Playwright.
 ##
 ### Coverage information
 | Feature | Coverage info |
