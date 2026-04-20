@@ -1,0 +1,58 @@
+{
+  "users": [
+    {
+      "case-description": "all valid data",
+      "username": "register-danylo",
+      "email": "register-danylo@email.com",
+      "password": "12345678"
+    },
+    {
+      "case-description": "short username and invalid email",
+      "username": "a",
+      "email": "a",
+      "password": "12345678"
+    },
+    {
+      "case-description": "short usernames",
+      "username": "a",
+      "email": "valid@email.com",
+      "password": "12345678"
+    },
+    {
+      "case-description": "all blank data",
+      "username": " ",
+      "email": " ",
+      "password": " "
+    },
+    {
+      "case-description": "blank username",
+      "username": " ",
+      "email": "valid@email.com",
+      "password": "12345678"
+    },
+    {
+      "case-description": "blank email",
+      "username": "valid-username",
+      "email": " ",
+      "password": "12345678"
+    },
+    {
+      "case-description": "blank password",
+      "username": "valid-username",
+      "email": "valid@email.com",
+      "password": " "
+    },
+    {
+      "case-description": "already used username",
+      "username": "register-danylo",
+      "email": "unique@email.com",
+      "password": "12345678"
+    },
+    {
+      "case-description": "already used email",
+      "username": "unique-email",
+      "email": "register-danylo@email.com",
+      "password": "12345678"
+    }
+  ]
+}
