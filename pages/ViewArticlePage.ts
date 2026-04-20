@@ -8,6 +8,7 @@ export class ViewArticlePage {
   readonly articleText: Locator;
   readonly articleTags: Locator;
   readonly articleAuthor: Locator;
+  readonly deleteArticleButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -17,6 +18,7 @@ export class ViewArticlePage {
     this.articleText = page.locator(".article-content p");
     this.articleTags = page.locator(".tag-list li");
     this.articleAuthor = page.locator(".banner .author");
+    this.deleteArticleButton = page.locator(".banner .btn-outline-danger");
   }
 
   async getArticleTitle() {
@@ -37,5 +39,9 @@ export class ViewArticlePage {
 
   async getArticleAuthor() {
     return await this.articleAuthor.textContent();
+  }
+
+  async deleteArticle() {
+    await this.deleteArticleButton.click();
   }
 }
