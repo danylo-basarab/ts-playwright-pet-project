@@ -46,4 +46,26 @@ test.describe("Profile Page", () => {
     await settingsPage.logout();
     expect(page).toHaveURL("https://conduit.bondaracademy.com/");
   });
+
+  test("check empty states for 'My Posts' and 'Favorited Posts' widgets", async ({
+    page,
+  }) => {
+    expect
+      .soft(await page.getByText("My Posts").getAttribute("class"))
+      .toEqual("nav-link active");
+    await expect
+      .soft(page.locator(".article-preview"))
+      .toHaveText("No articles are here... yet.");
+
+    await page.getByText("Favorited Posts").click();
+
+    await page.waitForTimeout(1000);
+    expect
+      .soft(await page.getByText("Favorited Posts").getAttribute("class"))
+      .toEqual("nav-link active");
+
+    await expect(page.locator(".article-preview")).toHaveText(
+      "No articles are here... yet.",
+    );
+  });
 });

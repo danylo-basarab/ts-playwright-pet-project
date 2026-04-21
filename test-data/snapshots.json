@@ -1,0 +1,19 @@
+{
+  "snapshots": [
+    {
+      "page": "home",
+      "url": "/",
+      "snapshot": "homepage.png"
+    },
+    {
+      "page": "profile",
+      "url": "/profile/danylo",
+      "snapshot": "profile.png"
+    },
+    {
+      "page": "favorite posts",
+      "url": "/profile/danylo/favorites",
+      "snapshot": "favoritePosts.png"
+    }
+  ]
+}
