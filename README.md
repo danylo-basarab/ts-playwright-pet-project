@@ -11,4 +11,6 @@ This pet project was built to practice test automation skills using TypeScript a
 | Article creation| Covered |
 | Article editing| Not covered yet |
 | Article deletion| Covered |
+| Snapshots| Covered |
+| a11y| Covered |
 | ...| ... |
