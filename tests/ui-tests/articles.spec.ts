@@ -49,7 +49,7 @@ test.describe("New Article Page", () => {
     urlOfCreatedArticle = page.url();
 
     await page.goto(urlOfCreatedArticle);
-    await viewArticlePage.deleteArticle();
+    await viewArticlePage.deleteArticleFromHeader();
     await page.waitForURL("https://conduit.bondaracademy.com/");
   });
 
