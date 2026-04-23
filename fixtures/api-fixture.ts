@@ -1,14 +1,16 @@
 import { test as base } from "@playwright/test";
-import { UsersApi } from "../api/UserAPI";
+import { UserApi } from "../api/UserAPI";
+import { ArticleApi } from "../api/ArticleAPI";
 
 type ApiFixtures = {
-  usersApi: UsersApi;
+  usersAPI: UserApi;
+  articlesAPI: ArticleApi;
   token: string;
 };
 
 export const test = base.extend<ApiFixtures>({
   token: async ({ request }, use) => {
-    const usersAPI = new UsersApi(request);
+    const usersAPI = new UserApi(request);
     const authToken = await usersAPI.loginUser({
       email: "danylo@email.com",
       password: "12345678",
@@ -16,9 +18,14 @@ export const test = base.extend<ApiFixtures>({
     await use(authToken);
   },
 
-  usersApi: async ({ request, token }, use) => {
-    const usersAPI = new UsersApi(request);
+  usersAPI: async ({ request }, use) => {
+    const usersAPI = new UserApi(request);
     await use(usersAPI);
+  },
+
+  articlesAPI: async ({ request }, use) => {
+    const articleAPI = new ArticleApi(request);
+    await use(articleAPI);
   },
 });
 

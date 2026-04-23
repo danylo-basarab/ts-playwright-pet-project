@@ -1,7 +1,7 @@
 // api/ArticlesApi.ts
 import { APIRequestContext } from "@playwright/test";
 
-export class UsersApi {
+export class UserApi {
   constructor(private request: APIRequestContext) {}
 
   async registerUser(body: {
@@ -39,16 +39,32 @@ export class UsersApi {
       password?: string;
     },
   ) {
-    const loginResponse = await this.request.put(
+    const response = await this.request.put(
       "https://conduit-api.bondaracademy.com/api/user",
       {
         headers: { Authorization: "Token " + token },
         data: { user: body },
       },
     );
-    const updateResponseJSON = await loginResponse.json();
 
-    console.log(updateResponseJSON);
-    return updateResponseJSON.user;
+    return response.status();
+  }
+
+  async followUser(personToFollow: string, token: string) {
+    const response = await this.request.post(
+      `https://conduit-api.bondaracademy.com/api/profiles/${personToFollow.replace(" ", "%20")}/follow`,
+      { headers: { Authorization: "Token " + token }, data: {} },
+    );
+
+    return response.status();
+  }
+
+  async unfollowUser(personToFollow: string, token: string) {
+    const response = await this.request.delete(
+      `https://conduit-api.bondaracademy.com/api/profiles/${personToFollow.replaceAll(" ", "%20")}/follow`,
+      { headers: { Authorization: "Token " + token }, data: {} },
+    );
+
+    return response.status();
   }
 }
