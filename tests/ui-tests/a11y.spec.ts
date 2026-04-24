@@ -16,7 +16,7 @@ const urls = [
   "/editor/test-52045",
 ];
 
-describe("guest - a11y tests", async () => {
+test.describe("guest - a11y tests", async () => {
   for (let url of urls) {
     test(`guest - a11y check for ${url}`, async ({ page }, testInfo) => {
       await page.goto(url);
@@ -37,7 +37,7 @@ describe("guest - a11y tests", async () => {
   }
 });
 
-describe("logged in user - a11y tests", async () => {
+test.describe("logged in user - a11y tests", async () => {
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
