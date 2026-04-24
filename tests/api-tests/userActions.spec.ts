@@ -60,16 +60,18 @@ test.describe("api - articles", async () => {
   });
 });
 
-test.describe("api - users", async () => {
-  test("register user via api", async ({ usersAPI }) => {
-    const usernameData = faker.animal.bird();
+test.describe("api - users", () => {
+  test("register user", async ({ usersAPI }) => {
+    const usernameData = faker.person.firstName();
     const emailData = `${usernameData}@email.com`;
 
-    const response = await usersAPI.registerUser({
+    const userData = {
       username: usernameData,
       email: emailData,
       password: "12345678",
-    });
+    };
+
+    const response = await usersAPI.registerUser(userData);
     expect(response).toBe(201);
   });
 
