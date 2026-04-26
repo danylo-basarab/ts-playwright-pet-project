@@ -1,7 +1,5 @@
 import { test as base } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage";
-import { CreateArticlePage } from "../pages/CreateArticlePage";
-import { ViewArticlePage } from "../pages/viewArticlePage";
 import fs from "fs";
 
 const jsonPath = "test-data/loginData.json";

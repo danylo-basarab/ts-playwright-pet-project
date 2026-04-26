@@ -1,9 +1,8 @@
 import { test, expect } from "../../fixtures/ui-fixture";
 import { CreateArticlePage } from "../../pages/CreateArticlePage";
-import { ViewArticlePage } from "../../pages/viewArticlePage";
+import { ViewArticlePage } from "../../pages/ViewArticlePage";
 import { faker } from "@faker-js/faker";
 import { HomePage } from "../../pages/HomePage";
-//import { LoginPage } from "../../pages/LoginPage";
 
 let urlOfCreatedArticle: string;
 let expectedCommentText: string;
