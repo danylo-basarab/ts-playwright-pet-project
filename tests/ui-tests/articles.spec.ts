@@ -3,6 +3,7 @@ import { CreateArticlePage } from "../../pages/CreateArticlePage";
 import { ViewArticlePage } from "../../pages/ViewArticlePage";
 import { faker } from "@faker-js/faker";
 import { HomePage } from "../../pages/HomePage";
+import { LoginPage } from "../../pages/LoginPage";
 
 let urlOfCreatedArticle: string;
 let expectedCommentText: string;
@@ -80,6 +81,38 @@ test.describe("New Article Page", () => {
     await expect
       .soft(page)
       .toHaveURL("https://conduit.bondaracademy.com/editor");
+  });
+
+  test("like article", async ({ page, loginPage }) => {
+    await viewArticlePage.likeArticle(
+      "https://conduit.bondaracademy.com/article/Take-the-Next-Step:-Join-Bondar-Academy-Today-and-Enroll-into-the-class-1",
+    );
+    await page.waitForResponse(/favorite/);
+    await expect(viewArticlePage.unlikeArticleInHeader).toBeVisible();
+  });
+
+  test("unlike article", async ({ page, loginPage }) => {
+    await viewArticlePage.unlikeArticle(
+      "https://conduit.bondaracademy.com/article/Take-the-Next-Step:-Join-Bondar-Academy-Today-and-Enroll-into-the-class-1",
+    );
+    await page.waitForResponse(/favorite/);
+    await expect(viewArticlePage.likeArticleInHeader).toBeVisible();
+  });
+
+  test("follow author", async ({ page, loginPage }) => {
+    await viewArticlePage.followAuthor(
+      "https://conduit.bondaracademy.com/article/Take-the-Next-Step:-Join-Bondar-Academy-Today-and-Enroll-into-the-class-1",
+    );
+    await page.waitForResponse(/follow/);
+    await expect(viewArticlePage.unfollowAuthorInHeader).toBeVisible();
+  });
+
+  test("unfollow author", async ({ page, loginPage }) => {
+    await viewArticlePage.unfollowAuthor(
+      "https://conduit.bondaracademy.com/article/Take-the-Next-Step:-Join-Bondar-Academy-Today-and-Enroll-into-the-class-1",
+    );
+    await page.waitForResponse(/follow/);
+    await expect(viewArticlePage.followAuthorInHeader).toBeVisible();
   });
 });
 

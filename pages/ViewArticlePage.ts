@@ -8,11 +8,17 @@ export class ViewArticlePage {
   readonly articleAuthor: Locator;
   readonly editArticleButtonInHeader: Locator;
   readonly deleteArticleButtonInHeader: Locator;
+  readonly likeArticleInHeader: Locator;
+  readonly unlikeArticleInHeader: Locator;
+  readonly followAuthorInHeader: Locator;
+  readonly unfollowAuthorInHeader: Locator;
   // main section
   readonly articleText: Locator;
   readonly articleTags: Locator;
   readonly editArticleButtonInMain: Locator;
   readonly deleteArticleButtonInMain: Locator;
+  readonly likeArticleInMain: Locator;
+  readonly unlikeArticleInMain: Locator;
   // comments
   readonly commentInput: Locator;
   readonly addCommentButton: Locator;
@@ -37,6 +43,10 @@ export class ViewArticlePage {
     this.addCommentButton = page.getByText("Post Comment");
     this.lastComment = page.locator("app-article-comment .card").last();
     this.deleteCommentButton = page.locator(".ion-trash-a");
+    this.likeArticleInHeader = page.getByText("Favorite Article").first();
+    this.unlikeArticleInHeader = page.getByText("Unfavorite Article").first();
+    this.followAuthorInHeader = page.getByText("Follow").first();
+    this.unfollowAuthorInHeader = page.getByText("Unfollow").first();
   }
 
   async getArticleTitle() {
@@ -87,5 +97,25 @@ export class ViewArticlePage {
   async deleteComment(articleLink: string, commentNumber: number) {
     await this.page.goto(articleLink);
     await this.deleteCommentButton.nth(commentNumber).click();
+  }
+
+  async likeArticle(articleLink: string) {
+    await this.page.goto(articleLink);
+    await this.likeArticleInHeader.click();
+  }
+
+  async unlikeArticle(articleLink: string) {
+    await this.page.goto(articleLink);
+    await this.unlikeArticleInHeader.click();
+  }
+
+  async followAuthor(articleLink: string) {
+    await this.page.goto(articleLink);
+    await this.followAuthorInHeader.click();
+  }
+
+  async unfollowAuthor(articleLink: string) {
+    await this.page.goto(articleLink);
+    await this.unfollowAuthorInHeader.click();
   }
 }
