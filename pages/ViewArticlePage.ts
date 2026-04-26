@@ -13,6 +13,11 @@ export class ViewArticlePage {
   readonly articleTags: Locator;
   readonly editArticleButtonInMain: Locator;
   readonly deleteArticleButtonInMain: Locator;
+  // comments
+  readonly commentInput: Locator;
+  readonly addCommentButton: Locator;
+  readonly lastComment: Locator;
+  readonly deleteCommentButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -25,10 +30,18 @@ export class ViewArticlePage {
     this.deleteArticleButtonInHeader = page.locator(
       ".banner .btn-outline-danger",
     );
+    this.editArticleButtonInHeader = page.locator(
+      '.banner a:has-text("Edit Article")',
+    );
+    this.commentInput = page.getByPlaceholder("Write a comment...");
+    this.addCommentButton = page.getByText("Post Comment");
+    this.lastComment = page.locator("app-article-comment .card").last();
+    this.deleteCommentButton = page.locator(".ion-trash-a");
   }
 
   async getArticleTitle() {
-    return await this.articleTitle.textContent();
+    const title = await this.articleTitle.textContent();
+    return title?.trim();
   }
 
   // async getArticleTopic() {
@@ -36,18 +49,43 @@ export class ViewArticlePage {
   // }
 
   async getArticleText() {
-    return await this.articleText.textContent();
+    const text = await this.articleText.textContent();
+    return text?.trim();
   }
 
   async getArticleTags() {
-    return await this.articleTags.allInnerTexts();
+    const tags = await this.articleTags.allInnerTexts();
+    tags.forEach((value) => value.trim());
+    console.log(tags);
+    return tags;
   }
 
   async getArticleAuthor() {
-    return await this.articleAuthor.textContent();
+    const author = await this.articleAuthor.textContent();
+    return author?.trim();
   }
 
   async deleteArticleFromHeader() {
     await this.deleteArticleButtonInHeader.click();
+  }
+
+  async openEditArticleMode() {
+    await this.editArticleButtonInHeader.click();
+  }
+
+  async addComment(articleLink: string, commentText: string) {
+    await this.page.goto(articleLink);
+    await this.commentInput.fill(commentText);
+    await this.addCommentButton.click();
+  }
+
+  async getLastCommentText(articleLink: string) {
+    await this.page.goto(articleLink);
+    return await this.lastComment.locator(".card-text").textContent();
+  }
+
+  async deleteComment(articleLink: string, commentNumber: number) {
+    await this.page.goto(articleLink);
+    await this.deleteCommentButton.nth(commentNumber).click();
   }
 }
