@@ -1,3 +1,4 @@
+import { timeStamp } from "console";
 import { test, expect } from "../../fixtures/api-fixture";
 import { faker } from "@faker-js/faker";
 
@@ -62,7 +63,7 @@ test.describe("api - articles", async () => {
 
 test.describe("api - users", () => {
   test("register user", async ({ usersAPI }) => {
-    const usernameData = faker.person.firstName();
+    const usernameData = `user - ${Date.now()}`;
     const emailData = `${usernameData}@email.com`;
 
     const userData = {
@@ -87,11 +88,7 @@ test.describe("api - users", () => {
 
   test("update user", async ({ usersAPI, token }) => {
     const requestBody = {
-      //image: "",
-      //username: "",
       bio: "updated bio 123",
-      //email: "",
-      //password: "",
     };
 
     const response = await usersAPI.updateUserInfo(token, requestBody);

@@ -45,7 +45,7 @@ test.describe("Profile Page", () => {
 
     await profilePage.openEditProfileSettings();
     await settingsPage.logout();
-    expect(page).toHaveURL("https://conduit.bondaracademy.com/");
+    await page.waitForURL("https://conduit.bondaracademy.com/");
   });
 
   test("ensure tab switcher for 'My Posts' and 'Favorited Posts' works", async ({
