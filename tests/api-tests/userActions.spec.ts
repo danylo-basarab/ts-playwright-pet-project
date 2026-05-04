@@ -105,7 +105,6 @@ test.describe("api - users", () => {
       email: emailData,
       password: "12345678",
     };
-
     const response = await usersAPI.registerUser(userData);
 
     expect(response.user).toBeDefined();
