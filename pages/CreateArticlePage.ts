@@ -20,7 +20,7 @@ export class CreateArticlePage {
       "Write your article (in markdown)",
     );
     this.articleTagsInput = page.getByPlaceholder("Enter tags");
-    this.publishArticleButton = page.getByText("Publish Article ");
+    this.publishArticleButton = page.getByText("Publish Article");
   }
 
   async fillArticleTitle(articleTitle: string) {

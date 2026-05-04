@@ -10,6 +10,7 @@ export class HomePage {
   readonly profileLink: Locator;
   readonly globalFeedTab: Locator;
   readonly yourFeedTab: Locator;
+  readonly tagLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -21,6 +22,7 @@ export class HomePage {
     this.profileLink = page.locator(".navbar .nav-link").last();
     this.globalFeedTab = page.locator("a:has-text('Global Feed')");
     this.yourFeedTab = page.locator("a:has-text('Your Feed')");
+    this.tagLink = page.locator('.sidebar a:text-is("Test")');
   }
 
   async isLoggedIn(): Promise<boolean> {
@@ -41,5 +43,9 @@ export class HomePage {
   }
   async clickProfileLink() {
     await this.profileLink.click();
+  }
+
+  async clickTagLink() {
+    await this.tagLink.click();
   }
 }

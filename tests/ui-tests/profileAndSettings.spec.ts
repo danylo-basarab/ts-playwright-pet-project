@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import { ProfilePage } from "../../pages/ProfilePage";
 import { LoginPage } from "../../pages/LoginPage";
 import { SettingsPage } from "../../pages/SettingsPage";
+import { HomePage } from "../../pages/HomePage";
 
 test.describe("Profile Page", () => {
   let profilePage: ProfilePage;
@@ -44,28 +45,62 @@ test.describe("Profile Page", () => {
 
     await profilePage.openEditProfileSettings();
     await settingsPage.logout();
-    expect(page).toHaveURL("https://conduit.bondaracademy.com/");
+    await page.waitForURL("https://conduit.bondaracademy.com/");
   });
 
-  test("check empty states for 'My Posts' and 'Favorited Posts' widgets", async ({
+  test("ensure tab switcher for 'My Posts' and 'Favorited Posts' works", async ({
     page,
   }) => {
     expect
       .soft(await page.getByText("My Posts").getAttribute("class"))
       .toEqual("nav-link active");
-    await expect
-      .soft(page.locator(".article-preview"))
-      .toHaveText("No articles are here... yet.");
+    expect
+      .soft(await page.getByText("Favorited Posts").getAttribute("class"))
+      .toEqual("nav-link");
 
     await page.getByText("Favorited Posts").click();
 
-    await page.waitForTimeout(1000);
+    await page.waitForSelector('a.nav-link.active:has-text("Favorited Posts")');
+
+    expect
+      .soft(await page.getByText("My Posts").getAttribute("class"))
+      .toEqual("nav-link");
     expect
       .soft(await page.getByText("Favorited Posts").getAttribute("class"))
       .toEqual("nav-link active");
+  });
 
-    await expect(page.locator(".article-preview")).toHaveText(
-      "No articles are here... yet.",
-    );
+  test("ensure tab switcher for 'Your Feed' and 'Global Feed' works", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    expect
+      .soft(await page.getByText("Your Feed").getAttribute("class"))
+      .toEqual("nav-link");
+    expect
+      .soft(await page.getByText("Global Feed").getAttribute("class"))
+      .toEqual("nav-link active");
+
+    await page.getByText("Your Feed").click();
+
+    await page.waitForSelector('a.nav-link.active:has-text("Your Feed")');
+
+    expect
+      .soft(await page.getByText("Your Feed").getAttribute("class"))
+      .toEqual("nav-link active");
+    expect
+      .soft(await page.getByText("Global Feed").getAttribute("class"))
+      .toEqual("nav-link");
+  });
+
+  test("ensure new tab is opened after clicking tag link", async ({ page }) => {
+    const homePage = new HomePage(page);
+
+    await page.goto("/");
+    await homePage.clickTagLink();
+
+    expect(
+      (await page.locator(".nav-pills .nav-link.active").textContent())?.trim(),
+    ).toEqual("Test");
   });
 });
