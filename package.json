@@ -15,6 +15,7 @@
     "allure-playwright": "^3.7.1"
   },
   "dependencies": {
-    "@axe-core/playwright": "^4.11.2"
+    "@axe-core/playwright": "^4.11.2",
+    "dotenv": "^17.4.2"
   }
 }

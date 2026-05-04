@@ -1,6 +1,7 @@
 import { test as base } from "@playwright/test";
 import { UserApi } from "../api/UserAPI";
 import { ArticleApi } from "../api/ArticleAPI";
+import "dotenv/config";
 
 type ApiFixtures = {
   usersAPI: UserApi;
@@ -12,8 +13,8 @@ export const test = base.extend<ApiFixtures>({
   token: async ({ request }, use) => {
     const usersAPI = new UserApi(request);
     const authToken = await usersAPI.loginUser({
-      email: "danylo@email.com",
-      password: "12345678",
+      email: process.env.USER_EMAIL || "",
+      password: process.env.USER_PASSWORD || "",
     });
     await use(authToken);
   },
