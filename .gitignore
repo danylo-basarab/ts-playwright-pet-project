@@ -9,3 +9,4 @@ node_modules/
 /reports
 /allure-results
 .env
+/test-data

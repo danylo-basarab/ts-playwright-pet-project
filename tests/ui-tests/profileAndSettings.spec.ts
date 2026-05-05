@@ -1,32 +1,26 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../../fixtures/ui-fixture";
 import { ProfilePage } from "../../pages/ProfilePage";
-import { LoginPage } from "../../pages/LoginPage";
 import { SettingsPage } from "../../pages/SettingsPage";
 import { HomePage } from "../../pages/HomePage";
+import "dotenv/config";
 
 test.describe("Profile Page", () => {
   let profilePage: ProfilePage;
-  let loginPage: LoginPage;
-  let username = "danylo";
 
   test.beforeEach(async ({ page }) => {
     profilePage = new ProfilePage(page);
-    loginPage = new LoginPage(page);
-
-    await page.goto(`/login`);
-    await loginPage.login("danylo@email.com", "12345678");
-    await page.waitForURL("https://conduit.bondaracademy.com/");
-    await page.goto(`/profile/${username}`);
   });
 
-  test("check profile icon", async () => {
+  test("check profile icon", async ({ page, loginPage }) => {
+    await page.goto(`/profile/danylo`);
     let profileUrl = await profilePage.getProfileIcon();
     expect(profileUrl).toEqual(
       "https://avatars.githubusercontent.com/u/33275488?v=4",
     );
   });
 
-  test("change settings for my profile", async ({ page }) => {
+  test("change settings for my profile", async ({ page, loginPage }) => {
+    await page.goto(`/profile/danylo`);
     await profilePage.openEditProfileSettings();
     let settingsPage = new SettingsPage(page);
     await settingsPage.fillIconUrl(
@@ -39,7 +33,8 @@ test.describe("Profile Page", () => {
     await settingsPage.saveChanges();
   });
 
-  test("check logout button", async ({ page }) => {
+  test("check logout button", async ({ page, loginPage }) => {
+    await page.goto(`/profile/danylo`);
     await profilePage.openEditProfileSettings();
     let settingsPage = new SettingsPage(page);
 
@@ -50,7 +45,9 @@ test.describe("Profile Page", () => {
 
   test("ensure tab switcher for 'My Posts' and 'Favorited Posts' works", async ({
     page,
+    loginPage,
   }) => {
+    await page.goto(`/profile/danylo`);
     expect
       .soft(await page.getByText("My Posts").getAttribute("class"))
       .toEqual("nav-link active");
@@ -72,6 +69,7 @@ test.describe("Profile Page", () => {
 
   test("ensure tab switcher for 'Your Feed' and 'Global Feed' works", async ({
     page,
+    loginPage,
   }) => {
     await page.goto("/");
     expect
@@ -93,7 +91,10 @@ test.describe("Profile Page", () => {
       .toEqual("nav-link");
   });
 
-  test("ensure new tab is opened after clicking tag link", async ({ page }) => {
+  test("ensure new tab is opened after clicking tag link", async ({
+    page,
+    loginPage,
+  }) => {
     const homePage = new HomePage(page);
 
     await page.goto("/");

@@ -1,54 +1,70 @@
 {
   "users": [
     {
+      "id": 0,
       "case-description": "all valid data",
       "username": "register-danylo",
       "email": "register-danylo@email.com",
       "password": "12345678"
     },
     {
+      "id": 1,
       "case-description": "short username and invalid email",
       "username": "a",
       "email": "a",
       "password": "12345678"
     },
     {
-      "case-description": "short usernames",
+      "id": 2,
+      "case-description": "short username",
       "username": "a",
       "email": "valid@email.com",
       "password": "12345678"
     },
     {
+      "id": 3,
+      "case-description": "invalid email",
+      "username": "valid-username",
+      "email": "a",
+      "password": "12345678"
+    },
+    {
+      "id": 4,
       "case-description": "all blank data",
       "username": " ",
       "email": " ",
       "password": " "
     },
     {
+      "id": 5,
       "case-description": "blank username",
       "username": " ",
       "email": "valid@email.com",
       "password": "12345678"
     },
     {
+      "id": 6,
       "case-description": "blank email",
       "username": "valid-username",
       "email": " ",
       "password": "12345678"
     },
     {
+      "id": 7,
       "case-description": "blank password",
       "username": "valid-username",
       "email": "valid@email.com",
       "password": " "
     },
     {
+      "id": 8,
       "case-description": "already used username",
       "username": "register-danylo",
       "email": "unique@email.com",
       "password": "12345678"
     },
     {
+      "id": 9,
       "case-description": "already used email",
       "username": "unique-email",
       "email": "register-danylo@email.com",

@@ -23,40 +23,28 @@ test.describe("Login Page", () => {
   });
 
   test("successful login", async ({ page }) => {
-    await loginPage.login(
-      loginData.users[0].email,
-      loginData.users[0].password,
-    );
+    await loginPage.login(loginData.users[0]);
     await page.waitForURL("https://conduit.bondaracademy.com/");
-
     expect(await homePage.isLoggedIn()).toBeTruthy();
   });
 
-  test("login with wrong password shows error", async () => {
-    await loginPage.login(
-      loginData.users[2].email,
-      loginData.users[2].password,
-    );
-
-    const errors = await loginPage.getErrorMessages();
-    expect(errors.length).toBeGreaterThan(0);
-    expect(errors).toContain("email or password is invalid");
-  });
-
   test("login with empty fields shows error", async () => {
-    await loginPage.login(
-      loginData.users[1].email,
-      loginData.users[1].password,
-    );
+    await loginPage.login(loginData.users[1]);
 
     const errors = await loginPage.getErrorMessages();
     expect(errors.length).toBeGreaterThan(0);
     expect(errors).toContain("email can't be blank");
   });
 
+  test("login with wrong password shows error", async () => {
+    await loginPage.login(loginData.users[2]);
+    const errors = await loginPage.getErrorMessages();
+    expect(errors.length).toBeGreaterThan(0);
+    expect(errors).toContain("email or password is invalid");
+  });
+
   test("sign up link navigates to register page", async ({ page }) => {
     await loginPage.goToSignUp();
-
     await expect(page).toHaveURL("https://conduit.bondaracademy.com/register");
   });
 });

@@ -31,9 +31,9 @@ export class LoginPage {
     await this.signInButton.click();
   }
 
-  async login(email: string, password: string) {
-    await this.fillEmail(email);
-    await this.fillPassword(password);
+  async login(user: { email: string; password: string }) {
+    await this.fillEmail(user.email);
+    await this.fillPassword(user.password);
     await this.clickSignIn();
   }
 

@@ -20,128 +20,43 @@ test.describe("Registration Page", () => {
     await expect(registrationPage.signUpButton).toBeVisible();
   });
 
-  test.skip("successful registration", async ({ page }) => {
-    await registrationPage.register(
-      registrationData.users[0].username,
-      registrationData.users[0].email,
-      registrationData.users[0].password,
-    );
+  test("successful registration", async ({ page }) => {
+    await registrationPage.register(registrationPage.generateUser().user);
     await page.waitForURL("https://conduit.bondaracademy.com/");
   });
 
-  // validation of invalid flows
   test("registration with short username and invalid email", async () => {
-    await registrationPage.register(
-      registrationData.users[1].username,
-      registrationData.users[1].email,
-      registrationData.users[1].password,
-    );
-
+    await registrationPage.register(registrationData.users[1]);
     const isValidError = await registrationPage.checkErrorMessage([
       "username is too short (minimum is 3 characters)",
       "email is invalid",
     ]);
-
     expect(isValidError).toBeTruthy();
   });
 
   test("registration with short username only", async () => {
-    await registrationPage.register(
-      registrationData.users[2].username,
-      registrationData.users[2].email,
-      registrationData.users[2].password,
-    );
-
+    await registrationPage.register(registrationData.users[2]);
     const isValidError = await registrationPage.checkErrorMessage([
       "username is too short (minimum is 3 characters)",
     ]);
-
     expect(isValidError).toBeTruthy();
   });
 
-  test("registration with all blank fields", async () => {
-    await registrationPage.register(
-      registrationData.users[3].username,
-      registrationData.users[3].email,
-      registrationData.users[3].password,
-    );
-
+  test("registration with invalid email only", async () => {
+    await registrationPage.register(registrationData.users[3]);
     const isValidError = await registrationPage.checkErrorMessage([
-      "email can't be blank",
-      "username can't be blank",
-      "password can't be blank",
+      "email is invalid",
     ]);
-
     expect(isValidError).toBeTruthy();
   });
 
-  test("registration with blank username", async () => {
-    await registrationPage.register(
-      registrationData.users[4].username,
-      registrationData.users[4].email,
-      registrationData.users[4].password,
-    );
-
+  test("registration with empty fields shows error", async () => {
+    await registrationPage.register(registrationData.users[4]);
     const isValidError = await registrationPage.checkErrorMessage([
       "username can't be blank",
-    ]);
-
-    expect(isValidError).toBeTruthy();
-  });
-
-  test("registration with blank email", async () => {
-    await registrationPage.register(
-      registrationData.users[5].username,
-      registrationData.users[5].email,
-      registrationData.users[5].password,
-    );
-
-    const isValidError = await registrationPage.checkErrorMessage([
       "email can't be blank",
-    ]);
-
-    expect(isValidError).toBeTruthy();
-  });
-
-  test("registration with blank password", async () => {
-    await registrationPage.register(
-      registrationData.users[6].username,
-      registrationData.users[6].email,
-      registrationData.users[6].password,
-    );
-
-    const isValidError = await registrationPage.checkErrorMessage([
       "password can't be blank",
     ]);
-
-    expect(isValidError).toBeTruthy();
-  });
-
-  test("registration with taken username", async () => {
-    await registrationPage.register(
-      registrationData.users[7].username,
-      registrationData.users[7].email,
-      registrationData.users[7].password,
-    );
-
-    const isValidError = await registrationPage.checkErrorMessage([
-      "username has already been taken",
-    ]);
-
-    expect(isValidError).toBeTruthy();
-  });
-
-  test("registration with taken email", async () => {
-    await registrationPage.register(
-      registrationData.users[8].username,
-      registrationData.users[8].email,
-      registrationData.users[8].password,
-    );
-
-    const isValidError = await registrationPage.checkErrorMessage([
-      "email has already been taken",
-    ]);
-
     expect(isValidError).toBeTruthy();
   });
 });

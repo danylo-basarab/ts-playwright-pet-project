@@ -1,4 +1,5 @@
 import { Page, Locator } from "@playwright/test";
+import { faker } from "@faker-js/faker";
 
 export class ViewArticlePage {
   readonly page: Page;
@@ -49,14 +50,19 @@ export class ViewArticlePage {
     this.unfollowAuthorInHeader = page.getByText("Unfollow").first();
   }
 
+  generateArticleData() {
+    return {
+      title: `New title ${Date.now()} - ${faker.animal.type()}`,
+      topic: `Topic ${faker.word.noun()}`,
+      text: `Text ${faker.lorem.sentence()}`,
+      tags: [faker.word.noun(), faker.word.noun()],
+    };
+  }
+
   async getArticleTitle() {
     const title = await this.articleTitle.textContent();
     return title?.trim();
   }
-
-  // async getArticleTopic() {
-  //   return await this.articleTopic.textContent();
-  // }
 
   async getArticleText() {
     const text = await this.articleText.textContent();
@@ -66,7 +72,6 @@ export class ViewArticlePage {
   async getArticleTags() {
     const tags = await this.articleTags.allInnerTexts();
     tags.forEach((value) => value.trim());
-    console.log(tags);
     return tags;
   }
 
