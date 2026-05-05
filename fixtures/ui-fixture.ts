@@ -14,10 +14,7 @@ export const test = base.extend<UiFixtures>({
     const loginPage = new LoginPage(page);
 
     await page.goto(`/login`);
-    await loginPage.login(
-      loginData.users[0].email,
-      loginData.users[0].password,
-    );
+    await loginPage.login(loginData.users[0]);
     await page.waitForURL("https://conduit.bondaracademy.com/");
     await use(loginPage);
   },

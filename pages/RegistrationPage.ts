@@ -1,4 +1,5 @@
 import { Page, Locator } from "@playwright/test";
+import { faker } from "@faker-js/faker";
 
 export class RegistrationPage {
   readonly page: Page;
@@ -19,6 +20,16 @@ export class RegistrationPage {
     this.errorMessages = page.locator(".error-messages li");
   }
 
+  generateUser() {
+    return {
+      user: {
+        username: faker.internet.username(),
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+      },
+    };
+  }
+
   async fillUsername(username: string) {
     await this.usernameInput.fill(username);
   }
@@ -35,10 +46,10 @@ export class RegistrationPage {
     await this.signUpButton.click();
   }
 
-  async register(username: string, email: string, password: string) {
-    await this.fillUsername(username);
-    await this.fillEmail(email);
-    await this.fillPassword(password);
+  async register(user: { username: string; email: string; password: string }) {
+    await this.fillUsername(user.username);
+    await this.fillEmail(user.email);
+    await this.fillPassword(user.password);
     await this.clickSignUp();
   }
 
