@@ -4,6 +4,9 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+env:
+  USER_EMAIL: ${{ secrets.USER_EMAIL }}
+  USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
 jobs:
   test:
     timeout-minutes: 60
@@ -25,6 +28,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-env:
-  USER_EMAIL: ${{ secrets.USER_EMAIL }}
-  USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
