@@ -9,7 +9,7 @@ This pet project was built to practice test automation skills using TypeScript a
 | Profile editing| Covered |
 | Navigation| Covered |
 | Article creation| Covered |
-| Article editing| Not covered yet |
+| Article editing| Covered |
 | Article deletion| Covered |
 | Snapshots| Covered |
 | a11y| Covered |
